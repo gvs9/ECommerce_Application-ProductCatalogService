@@ -8,7 +8,7 @@ import java.util.Date;
 @Getter
 public abstract class BaseModel {
 
-    private int id;
+    private Long id;
 
     private Date createdAt;
 
