@@ -29,7 +29,13 @@ public class ProductController {
 
     @GetMapping
     public List<ProductDto> getAllProducts() {
-        return new ArrayList<ProductDto>();
+        List<ProductDto>productDtos=new ArrayList<>();
+        List<Product>products=productService.getAllProducts();
+        for(Product product:products){
+            productDtos.add(from(product));
+
+        }
+        return productDtos;
     }
 
     @GetMapping("{id}")
@@ -68,6 +74,10 @@ return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     public ProductDto replaceProduct(@PathVariable int id,@RequestBody ProductDto productDto){
         return productDto;
     }
+
+
+
+
 
     private ProductDto from( Product product){
         ProductDto productDto = new ProductDto();

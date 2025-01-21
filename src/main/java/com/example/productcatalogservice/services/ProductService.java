@@ -2,6 +2,7 @@ package com.example.productcatalogservice.services;
 
 
 import com.example.productcatalogservice.dtos.FakeStoreProductDto;
+import com.example.productcatalogservice.dtos.ProductDto;
 import com.example.productcatalogservice.models.Category;
 import com.example.productcatalogservice.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,7 +23,7 @@ public class ProductService implements IProductService {
 
 
 
-
+//get product by id
     @Override
     public Product getProductById(Long id){
         RestTemplate restTemplate = restTemplateBuilder.build();
@@ -32,15 +34,39 @@ public class ProductService implements IProductService {
     return null;
     }
 
+
+    //get all products
+
     @Override
     public List<Product> getAllProducts(){
-        return null;
+        List<Product> products=new ArrayList<>();
+        RestTemplate restTemplate = restTemplateBuilder.build();
+       FakeStoreProductDto[]fakeStoreProductDtos= restTemplate.getForEntity("https://fakestoreapi.com/products", FakeStoreProductDto[].class).getBody();
+       for(FakeStoreProductDto fakeStoreProductDto:fakeStoreProductDtos){
+           products.add(from(fakeStoreProductDto));
+       }
+        return products;
     }
 
+
+    //create product
     @Override
     public Product createProduct(Product product){
         return null;
     }
+
+
+    //replace product
+@Override
+public Product replaceproduct(Long id, Product product){
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        restTemplate.put("https://fakestoreapi.com/products/{product id}",product,id);
+
+        return null;
+}
+
+
+
 
     private Product from(FakeStoreProductDto fakeStoreProductDto){
 
