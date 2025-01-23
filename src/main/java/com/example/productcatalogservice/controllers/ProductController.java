@@ -3,6 +3,7 @@ package com.example.productcatalogservice.controllers;
 
 import com.example.productcatalogservice.dtos.CategoryDto;
 import com.example.productcatalogservice.dtos.ProductDto;
+import com.example.productcatalogservice.models.Category;
 import com.example.productcatalogservice.models.Product;
 import com.example.productcatalogservice.services.IProductService;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -60,7 +61,8 @@ public class ProductController {
     catch(IllegalArgumentException e)
 
     {
-return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        //return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        throw e;
     }
 }
 
@@ -71,10 +73,29 @@ return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("{id}")
-    public ProductDto replaceProduct(@PathVariable int id,@RequestBody ProductDto productDto){
-        return productDto;
+    public ProductDto replaceProduct(@PathVariable Long id,@RequestBody ProductDto productDto){
+Product product=from(productDto);
+        Product result= productService.replaceProduct(id,product);
+        return from(result);
     }
 
+
+
+private Product from(ProductDto productDto){
+        Product product = new Product();
+
+                                   product.setName(productDto.getName());
+                                   product.setDescription(productDto.getDescription());
+                                   product.setPrice(productDto.getPrice());
+                                   product.setImageUrl(productDto.getImageUrl());
+
+                                   if(productDto.getCategory()!=null){
+                                       Category category = new Category();
+                                       category.setName(productDto.getCategory().getName());
+                                       product.setCategory(category);
+                                   }
+                                   return product;
+}
 
 
 
