@@ -12,9 +12,12 @@ public class ProductDto {
     private Long id;
 
     private String imageUrl;
+
     private String name;
+
     private String description;
-    private double price;
+
+    private Double price;
 
     private CategoryDto category;
 }

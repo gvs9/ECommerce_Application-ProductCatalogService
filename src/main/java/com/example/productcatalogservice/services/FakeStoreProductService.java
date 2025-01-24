@@ -3,13 +3,11 @@ package com.example.productcatalogservice.services;
 
 import com.example.productcatalogservice.clients.FakeStoreApiClient;
 import com.example.productcatalogservice.dtos.FakeStoreProductDto;
-import com.example.productcatalogservice.dtos.ProductDto;
 import com.example.productcatalogservice.models.Category;
 import com.example.productcatalogservice.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
@@ -22,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ProductService implements IProductService {
+public class FakeStoreProductService implements IProductService {
 
     @Autowired
     private RestTemplateBuilder restTemplateBuilder;
@@ -42,21 +40,35 @@ private FakeStoreApiClient fakeStoreApiClient;
 
     @Override
     public List<Product> getAllProducts(){
-        List<Product> products=new ArrayList<>();
-        RestTemplate restTemplate = restTemplateBuilder.build();
-       FakeStoreProductDto[]fakeStoreProductDtos= restTemplate.getForEntity("https://fakestoreapi.com/products", FakeStoreProductDto[].class).getBody();
-        assert fakeStoreProductDtos != null;
-        for(FakeStoreProductDto fakeStoreProductDto:fakeStoreProductDtos){
-           products.add(from(fakeStoreProductDto));
-       }
+//        List<Product> products=new ArrayList<>();
+//        RestTemplate restTemplate = restTemplateBuilder.build();
+//       FakeStoreProductDto[]fakeStoreProductDtos= restTemplate.getForEntity("https://fakestoreapi.com/products", FakeStoreProductDto[].class).getBody();
+//        assert fakeStoreProductDtos != null;
+//        for(FakeStoreProductDto fakeStoreProductDto:fakeStoreProductDtos){
+//           products.add(from(fakeStoreProductDto));
+//       }
+//        return products;
+
+        List<FakeStoreProductDto> fakeStoreProductDtos = fakeStoreApiClient.getAllProducts();
+        List<Product> products = new ArrayList<>();
+        for (FakeStoreProductDto dto : fakeStoreProductDtos) {
+            products.add(from(dto));
+        }
         return products;
+
     }
 
 
     //create product
     @Override
     public Product createProduct(Product product){
-        return null;
+        FakeStoreProductDto fakeStoreProductDtoReq = from(product);
+
+        //  FakeStoreApiClient to create the product
+        FakeStoreProductDto fakeStoreProductDtoResponse = fakeStoreApiClient.createProduct(fakeStoreProductDtoReq);
+
+
+        return from(fakeStoreProductDtoResponse);
     }
 
 

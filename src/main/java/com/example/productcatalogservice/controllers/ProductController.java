@@ -69,7 +69,9 @@ public class ProductController {
 @PostMapping
     public ProductDto createProduct(@RequestBody ProductDto productDto){
 
-        return productDto;
+        Product product=from(productDto);
+        Product response=productService.createProduct(product);
+        return from(response);
     }
 
     @PutMapping("{id}")
@@ -83,19 +85,20 @@ Product product=from(productDto);
 
 private Product from(ProductDto productDto){
         Product product = new Product();
+        product.setName(productDto.getName());
+        product.setDescription(productDto.getDescription());
+        product.setPrice(productDto.getPrice());
+        product.setImageUrl(productDto.getImageUrl());
+       product.setId(productDto.getId());
 
-                                   product.setName(productDto.getName());
-                                   product.setDescription(productDto.getDescription());
-                                   product.setPrice(productDto.getPrice());
-                                   product.setImageUrl(productDto.getImageUrl());
-
-                                   if(productDto.getCategory()!=null){
-                                       Category category = new Category();
-                                       category.setName(productDto.getCategory().getName());
-                                       product.setCategory(category);
-                                   }
-                                   return product;
-}
+        if(productDto.getCategory()!=null){
+        Category category = new Category();
+        category.setId(productDto.getCategory().getId());
+        category.setName(productDto.getCategory().getName());
+        product.setCategory(category);
+            }
+         return product;
+          }
 
 
 
@@ -107,6 +110,7 @@ private Product from(ProductDto productDto){
         productDto.setDescription(product.getDescription());
         productDto.setPrice(product.getPrice());
         productDto.setImageUrl(product.getImageUrl());
+
         if(product.getCategory() !=null){
             CategoryDto categoryDto = new CategoryDto();
             categoryDto.setId(product.getCategory().getId());
