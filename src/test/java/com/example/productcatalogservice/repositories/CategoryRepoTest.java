@@ -25,6 +25,18 @@ class CategoryRepoTest {
 
         Optional<Category> optionalCategory = categoryRepo.findById(2L);
         System.out.println(optionalCategory.get().getName());
+//        for (Product p: optionalCategory.get().getProduct())
+//        {
+//
+//            System.out.println(p.getName());
+//        }
+    }
+
+    @Test
+    @Transactional
+    void testFetchTypesAndModes() {
+        Optional<Category> optionalCategory = categoryRepo.findById(4L);
+        System.out.println(optionalCategory.get().getName());
         for (Product p: optionalCategory.get().getProduct())
         {
 

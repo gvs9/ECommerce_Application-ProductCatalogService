@@ -43,10 +43,12 @@ public class ProductController {
     public ResponseEntity<ProductDto> getProduct(@PathVariable("id") Long productId) {
 
         try {
-            if (productId < 1) {
+            if (productId == 0) {
                 throw new IllegalArgumentException("Product not Available");
             }
-
+else if(productId<0){
+    throw new IllegalArgumentException("are oyu stupid");
+            }
 
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         headers.add("called by", "Product Catalog Service");
