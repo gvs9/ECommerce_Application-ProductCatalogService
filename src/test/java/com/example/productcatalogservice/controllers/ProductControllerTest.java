@@ -7,9 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,6 +30,9 @@ public class ProductControllerTest {
     @Mock
     private IProductService productService;
 
+    @Captor
+    private ArgumentCaptor<Long> idCaptor;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -48,6 +49,8 @@ public class ProductControllerTest {
 //        when(productService.getProductById(any(Long.class))).thenReturn(new Product());
 
         when(productService.getProductById(id)).thenReturn(product);
+
+
         ResponseEntity<ProductDto> response = productController.getProduct(id);
 
         //Assert
@@ -75,4 +78,30 @@ public class ProductControllerTest {
 
          assertThrows(RuntimeException.class, () -> productController.getProduct(1L));
     }
+
+
+    @Test
+    public void Test_GetProductById_CheckIfProductServiceCalledWithExpectedArguments() {
+
+        //Arrange
+        Long id = 1L;
+        Product product = new Product();
+        product.setId(id);
+        product.setName("Iphone20");
+
+//        when(productService.getProductById(any(Long.class))).thenReturn(new Product());
+
+        when(productService.getProductById(id)).thenReturn(product);
+
+        //Act
+        productController.getProduct(id);
+
+        //Assert
+        verify(productService).getProductById(idCaptor.capture());
+        assertEquals(id, idCaptor.getValue());
+
+
+
+    }
+
 }
