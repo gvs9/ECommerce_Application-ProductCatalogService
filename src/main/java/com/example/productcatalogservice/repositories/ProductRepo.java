@@ -30,4 +30,5 @@ String findProductNameFromId(Long id);
 @Query("select c.name from Product p join Category c on p.category.id=c.id where p.id=:productId")
 String findCategoryNameFromProductId(Long productId);
 
+    Long id(Long id);
 }

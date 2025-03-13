@@ -8,6 +8,7 @@ import com.example.productcatalogservice.models.Product;
 import com.example.productcatalogservice.services.IProductService;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +25,12 @@ import java.util.List;
 public class ProductController {
 
 
+
     @Autowired
-    private IProductService productService;
+   private IProductService productService;
+//    @Autowired
+//    private List<IProductService> productService;
+
 
 
 
@@ -34,7 +39,9 @@ public class ProductController {
     @GetMapping
     public List<ProductDto> getAllProducts() {
         List<ProductDto>productDtos=new ArrayList<>();
+
         List<Product>products=productService.getAllProducts();
+
         for(Product product:products){
             productDtos.add(from(product));
 
@@ -43,7 +50,7 @@ public class ProductController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ProductDto> getProduct(@PathVariable("id") Long productId) {
+    public ProductDto getProduct(@PathVariable("id") Long productId) {
 
         try {
             if (productId == 0) {
@@ -58,10 +65,12 @@ else if(productId<0){
         Product product = productService.getProductById(productId);
 
         if (product == null) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return null;
+            //return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         ProductDto productDto = from(product);
-        return new ResponseEntity<>(productDto, headers, HttpStatus.OK);
+        return productDto;
+        //return new ResponseEntity<>(productDto, headers, HttpStatus.OK);
     }
     catch(IllegalArgumentException e)
 

@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
+@Service
+@Primary
 
 public class StorageProductService implements IProductService{
 
@@ -20,16 +22,18 @@ public class StorageProductService implements IProductService{
     @Override
     public Product getProductById(Long id) {
         Optional<Product> productOptional = productRepo.findById(id);
-        if (productOptional.isPresent()) {
-            return productOptional.get();
-        }
-        return null;
+        return productOptional.orElse(null);
     }
 
     @Override
     public List<Product> getAllProducts() {
-        return List.of();
+
+
+         List<Product>products=productRepo.findAll();
+
+        return products;
     }
+
 
     @Override
     public Product createProduct(Product product) {

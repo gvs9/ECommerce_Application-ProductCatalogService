@@ -1,5 +1,6 @@
 package com.example.productcatalogservice.repositories;
 
+import com.example.productcatalogservice.models.Category;
 import com.example.productcatalogservice.models.Product;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
@@ -25,6 +26,24 @@ class ProductRepoTest {
 //        optionalProduct.ifPresent(product -> System.out.println(product.getName()));
 
        // String productName=productRepo.findProductNameFromId(2L);
-        System.out.println( productRepo.findCategoryNameFromProductId(2L));
+        System.out.println( productRepo.findCategoryNameFromProductId(1L));
     }
+
+@Test
+    public void insertIntoAWSDb(){
+
+        Product product = new Product();
+        product.setId(1L);
+        product.setName("git");
+        product.setDescription("test2git");
+
+        Category category = new Category();
+        category.setId(4L);
+        category.setName("test2gitesh2");
+        product.setCategory(category);
+        productRepo.save(product);
+
+
+    }
+
 }
