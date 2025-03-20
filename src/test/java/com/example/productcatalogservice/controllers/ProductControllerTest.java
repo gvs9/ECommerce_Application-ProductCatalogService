@@ -51,12 +51,12 @@ public class ProductControllerTest {
         when(productService.getProductById(id)).thenReturn(product);
 
 
-        ProductDto response = productController.getProduct(id);
+       ResponseEntity <ProductDto> response = productController.getProduct(id);
 
         //Assert
         assertNotNull(response);
-        assertEquals(id, response.getId());
-        assertEquals("Iphone20", response.getName());
+        assertEquals(id, response.getBody().getId());
+        assertEquals("Iphone20", response.getBody().getName());
 
 
     }
