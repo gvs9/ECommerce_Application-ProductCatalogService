@@ -37,7 +37,10 @@ public FakeStoreProductService(RestTemplateBuilder restTemplateBuilder, FakeStor
     this.redisTemplate = redisTemplate;
 
 }
-
+@Override
+    public Product getProductBasedOnScope( Long pid,Long uid){
+    return null;
+    }
 
 //get product by id
     @Override
