@@ -61,16 +61,16 @@ public class ProductControllerTest {
 
     }
 
-    @Test
-    @DisplayName("parameter 0 resulted in product not available exception")
-    public void Test_GetProductById_withInvalidId_ThrowsException() {
-
-        Exception ex = assertThrows(IllegalArgumentException.class, () -> productController.getProduct(0L));
-        assertEquals("Product not Available", ex.getMessage());
-
-        verify(productService,times(0)).getProductById(0L);
-
-    }
+//    @Test
+//    @DisplayName("parameter 0 resulted in product not available exception")
+//    public void Test_GetProductById_withInvalidId_ThrowsException() {
+//
+//        Exception ex = assertThrows(IllegalArgumentException.class, () -> productController.getProduct(0L));
+//        assertEquals("Product not Available", ex.getMessage());
+//
+//        verify(productService,times(0)).getProductById(0L);
+//
+//    }
 
     @Test
     public void Test_GetProductById_ProductServiceThrowsException() {

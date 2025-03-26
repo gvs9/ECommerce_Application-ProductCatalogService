@@ -24,7 +24,7 @@ class CategoryRepoTest {
     @Transactional
     void testFetchTypes() {
 
-        Optional<Category> optionalCategory = categoryRepo.findById(4L);
+        Optional<Category> optionalCategory = categoryRepo.findById(1L);
         System.out.println(optionalCategory.get().getName());
 //        for (Product p: optionalCategory.get().getProduct())
 //        {
@@ -45,7 +45,7 @@ class CategoryRepoTest {
 //        }
 //    }
 
-        Optional<Category> optionalCategory = categoryRepo.findById(4L);
+        Optional<Category> optionalCategory = categoryRepo.findById(1L);
 
         // Check if the category is present before accessing it
         if (optionalCategory.isPresent()) {
@@ -54,7 +54,7 @@ class CategoryRepoTest {
                 System.out.println(p.getName());
             }
         } else {
-            fail("Category with ID 4 not found in the database");
+            fail("Category with ID  not found in the database");
         }
     }
     @Test

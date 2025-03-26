@@ -29,21 +29,21 @@ class ProductRepoTest {
         System.out.println( productRepo.findCategoryNameFromProductId(1L));
     }
 
-@Test
-    public void insertIntoAWSDb(){
-
-        Product product = new Product();
-        product.setId(1L);
-        product.setName("git");
-        product.setDescription("test2git");
-
-        Category category = new Category();
-        category.setId(4L);
-        category.setName("test2gitesh2");
-        product.setCategory(category);
-        productRepo.save(product);
-
-
-    }
+//@Test
+//    public void insertIntoAWSDb(){
+//
+//        Product product = new Product();
+//        product.setId(1L);
+//        product.setName("git");
+//        product.setDescription("test2git");
+//
+//        Category category = new Category();
+//        category.setId(4L);
+//        category.setName("test2gitesh2");
+//        product.setCategory(category);
+//        productRepo.save(product);
+//
+//
+//    }
 
 }

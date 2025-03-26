@@ -31,6 +31,11 @@ public class ProductController {
 //    @Autowired
 //    private List<IProductService> productService;
 
+    @GetMapping("/play")
+    public String sayplay(){
+        return "lets play";
+    }
+
 @GetMapping("/{pid},/{uid}")
 public ProductDto getProductDetailsBasedOnUserScope(@PathVariable Long pid, @PathVariable Long uid) {
 

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productcatalogserviceone
+  labels:
+    app: productcatalogserviceone
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: productcatalogserviceone
+  template:
+    metadata:
+      name: productcatalogserviceone
+      labels:
+        app: productcatalogserviceone
+    spec:
+      containers:
+        - name: productcatalogserviceone
+          image: git9168/productcatalogservice:v0.000001
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      restartPolicy: Always
+      
