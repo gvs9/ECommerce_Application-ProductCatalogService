@@ -32,10 +32,27 @@ Payment Receipt: Provide receipts after successful payments.
 Authentication:
 Secure Authentication: Protect user data during login and sessions.
 Session Management: Maintain user sessions for a specified duration or until logout.
+
 These features ensure a robust, user-friendly e-commerce platform, supporting high-traffic scenarios and enhancing customer satisfaction, as highlighted in the project description and real-life applications sections.
 
-Architecture
+Microservices Architecture
+
 The system follows a microservices architecture, ensuring modularity, fault isolation, and scalability, as detailed in the class diagrams and database schema design sections. Each microservice is responsible for specific functionalities, communicating asynchronously via Apache Kafka, and is deployed independently on AWS for elastic scalability. The architecture components include:
+
+Microservices & Repositories
+Service Name	Description	Repository Link
+User Authentication Service -	Handles user authentication & authorization (JWT/OAuth2)- https://github.com/gvs9/UserAuthenticationService-git
+Product Catalog Service	- Manages product listings and categories	- https://github.com/gvs9/ECommerce_Application-ProductCatalogService
+Payment Service	-Handles online payments & transactions	- https://github.com/gvs9/PaymentService-git
+Notification/Email Service	- Sends SMS, push, and email notifications - https://github.com/gvs9/EmailService-git
+Service Discovery	- Manages service registration & discovery (Eureka/Consul) - https://github.com/gvs9/ServiceDiscovery-git
+
+[Client] → [API Gateway] → [User Authentication Service]  
+                         → [Product Service]  
+                         → [Payment Service]  
+                         → [Order Service]  
+                         → [Email Service]  
+
 
 Load Balancers (LB): Distribute incoming user requests across multiple server instances using AWS Elastic Load Balancing, ensuring high availability and load balancing.
 API Gateway: Acts as the entry point for clients, routing requests to appropriate microservices using Kong, handling rate limiting and authentication.
@@ -90,7 +107,19 @@ Postman or curl (for API testing)
 Steps
 Clone the Repository:
 git clone https://github.com/gvs9/ECommerce_Application-ProductCatalogService.git
+git clone https://github.com/gvs9/UserAuthenticationService-git
+git clone https://github.com/gvs9/PaymentService-git
+git clone https://github.com/gvs9/EmailService-git
+git clone https://github.com/gvs9/ServiceDiscovery-git
+
+
 cd ECommerce_Application-ProductCatalogService
+cd UserAuthenticationservice
+cd PaymentService
+cd EmailService
+cd ServiceDiscovery
+
+
 
 Set Up Databases:
 MySQL: Create a database named productcatalogservice_ecomplatform and run the schema scripts from db/mysql-schema.sql (provided in the repository). Ensure credentials are set in application.properties for each microservice.
