@@ -47,11 +47,11 @@ Payment Service	-Handles online payments & transactions	- https://github.com/gvs
 Notification/Email Service	- Sends SMS, push, and email notifications - https://github.com/gvs9/EmailService-git
 Service Discovery	- Manages service registration & discovery (Eureka/Consul) - https://github.com/gvs9/ServiceDiscovery-git
 
-[Client] → [API Gateway] → [User Authentication Service]  
-                         → [Product Service]  
-                         → [Payment Service]  
-                         → [Order Service]  
-                         → [Email Service]  
+[Client] → [API Gateway] → [UserAuthenticationService]  
+                         → [ProductCatologService]  
+                         → [PaymentService]  
+                         → [OrderService]  
+                         → [EmailService]  
 
 
 Load Balancers (LB): Distribute incoming user requests across multiple server instances using AWS Elastic Load Balancing, ensuring high availability and load balancing.
